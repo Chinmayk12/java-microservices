@@ -21,6 +21,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService ordersService;
 
+    @GetMapping("/helloOrders")
+    public String helloOrders() {
+        log.info("Received request to /helloOrders endpoint");
+        return "Hello from Orders Service!";
+    }
+
     @GetMapping
     public ResponseEntity<List<OrderRequestDto>> getAllOrders(HttpServletRequest request) {
         log.info("Fetching all orders from controller");
