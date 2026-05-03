@@ -1,0 +1,41 @@
+# Health check configuration for the order service, including circuit breaker settings and endpoint exposure.
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    endpoints:
+      health:
+        show-details: always
+
+
+# Resilience4J configuration for retry, rate limiter, and circuit breaker settings specific to the inventory service.
+resilience4J:
+  retry:
+    default:  # Default configuration for all retry instances
+      max-attempts: 3
+      wait-duration: 5s
+    instances:
+      inventoryRetry: # Specific retry configuration for the inventory service
+        baseConfig: default
+        wait-duration: 2s # The time to wait between retry attempts
+  rate-limiter:
+    instances:
+      inventoryRateLimiter:
+        limitRefreshPeriod: 5s # The time period after which the limit counter is reset
+        limitForPeriod: 1       # The number of calls that are allowed within the limit refresh period
+        timeoutDuration: 1s # The time to wait for permission before throwing a RequestNotPermitted exception
+  circuitbreaker:
+    instances:
+      inventoryCircuitBreaker:
+        registerHealthIndicator: true # Whether to register a health indicator for this circuit breaker
+        slidingWindowSize: 10   # The size of the sliding window which is used to record the outcome of calls when the circuit breaker is closed
+        slidingWindowType: COUNT_BASED # The type of the sliding window (COUNT_BASED or TIME_BASED)
+        minimumNumberOfCalls: 10  # The minimum number of calls which are required before the circuit breaker can calculate the failure rate and thus transition to open state
+        failureRateThreshold: 50  # The failure rate threshold in percentage above which the circuit breaker transitions to open state
+        waitDurationInOpenState: 20s  # The time that the circuit breaker should wait before transitioning from open to half-open state
+        permittedNumberOfCallsInHalfOpenState: 3 # The number of calls that are allowed when the circuit breaker is half-open before it transitions to closed or open state
+        eventConsumerBufferSize: 10 # The size of the buffer used for storing events which are published by the circuit breaker
