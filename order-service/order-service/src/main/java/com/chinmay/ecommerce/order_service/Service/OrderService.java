@@ -40,9 +40,12 @@ public class OrderService {
     // It calls again the createOrder method for a specified number of times (default is 3) before giving up and calling the fallback method (createOrderFallback)
     // if the inventory service is still not responding.
     //@Retry(name = "inventoryRetry", fallbackMethod = "createOrderFallback")
+
     // This @RateLimiter is used to limit the number of calls to the createOrder method within a specified time window.
     //@RateLimiter(name="inventoryRateLimiter", fallbackMethod = "createOrderFallback")
 
+    // This @CircuitBreaker is used to break the circuit and stop calling the createOrder method when the inventory
+    // service is not responding or is taking too long to respond.
     @CircuitBreaker(name = "inventoryCircuitBreaker", fallbackMethod = "createOrderFallback")
     public OrderRequestDto createOrder(OrderRequestDto orderRequestDto) {
 

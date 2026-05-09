@@ -21,9 +21,10 @@ public class OrderController {
     private final OrderService ordersService;
 
     @GetMapping("/helloOrders")
-    public String helloOrders() {
+    // Here we are fetching the data that is passed from API Gateway to the downstream services
+    public String helloOrders(@RequestHeader("X-User-Id") String userId) {
         log.info("Received request to /helloOrders endpoint");
-        return "Hello from Orders Service!";
+        return "Hello from Orders Service , User ID: " + userId;
     }
 
     @PostMapping("/create-order")

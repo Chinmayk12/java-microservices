@@ -1,3 +1,6 @@
+jwt:
+  secretKey: LKJNALJRKGRLNARIWGANGLKAJGNARGUAOREGARWGJAUIAJINARLIGAERNGAERIGJ
+
 spring:
   application:
     name: api-gateway
@@ -7,11 +10,15 @@ spring:
         webflux:
           routes:
             - id: order-service
-              uri: lb://ORDER-SERVICE
+              uri: lb://ORDER-SERVICE  # load-balanced URI for the order service
               predicates:
                 - Path=/api/v1/orders/**
               filters:
                 - StripPrefix=2
+                - name : LoggingOrderFilter
+                - name : Authentication  # or we can also use directly AuthenticationGatewayFilterFactory
+                  args :
+                    isEnabled : false
             - id: inventory-service
               uri: lb://INVENTORY-SERVICE
               predicates:
@@ -19,6 +26,7 @@ spring:
               filters:
                 - StripPrefix=2
                 - AddRequestHeader=X-Custom-Header, Chinuthon
+                - name: Authentication  #or we can also use directly AuthenticationGatewayFilterFactory
 
 #server configuration
 server:

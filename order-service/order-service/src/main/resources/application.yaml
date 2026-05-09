@@ -13,11 +13,12 @@ management:
 
 
 # Resilience4J configuration for retry, rate limiter, and circuit breaker settings specific to the inventory service.
-resilience4J:
+resilience4j:
   retry:
-    default:  # Default configuration for all retry instances
-      max-attempts: 3
-      wait-duration: 5s
+    configs:
+      default:  # Default configuration for all retry instances
+        max-attempts: 3
+        wait-duration: 500ms #5ms
     instances:
       inventoryRetry: # Specific retry configuration for the inventory service
         baseConfig: default
