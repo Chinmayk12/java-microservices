@@ -41,7 +41,7 @@ public class OrderController {
         log.info("Received request to /helloOrders endpoint");
 
         if(featuresEnableConfig.isUserTrackingEnabled()){
-            return "User Tracking Enabled , myVariable: " + myVariable;
+            return "User Tracking Enabled , myVariable : " + myVariable;
         }
         else{
             return "User Tracking Disabled , myVariable: " + myVariable;

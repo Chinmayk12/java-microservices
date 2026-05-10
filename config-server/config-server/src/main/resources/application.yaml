@@ -7,7 +7,7 @@ spring:
         git:
           uri: https://github.com/Chinmayk12/ecommerce-microservice-config-server
           username: Chinmayk12
-          password: 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
+          password : ${GITHUB_TOKEN} # We use environment variable to store the password for security reasons. You can set this environment variable in your system or IDE.
           default-label: main
 
 server:
