@@ -1,0 +1,18 @@
+[33mcommit 2aaec9983e603bce80aaa3c47402b07aca3ac54a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Chinmay kardpati <karodpatichinmay12@gmail.com>
+Date:   Sat May 16 22:37:47 2026 +0530
+
+    Zipkin Added For Monitoring Services
+
+[1mdiff --git a/api-gateway/api-gateway/src/main/resources/application.yaml b/api-gateway/api-gateway/src/main/resources/application.yaml[m
+[1mindex 2759b87..66887f3 100644[m
+[1m--- a/api-gateway/api-gateway/src/main/resources/application.yaml[m
+[1m+++ b/api-gateway/api-gateway/src/main/resources/application.yaml[m
+[36m@@ -1,7 +1,3 @@[m
+[31m-# this below configs will be fetched from git config server, so they are commented out here.[m
+[31m-#jwt:[m
+[31m-#  secretKey: LKJNALJRKGRLNARIWGANGLKAJGNARGUAOREGARWGJAUIAJINARLIGAERNGAERIGJ[m
+[31m-[m
+ spring:[m
+   application:[m
+     name: api-gateway[m
